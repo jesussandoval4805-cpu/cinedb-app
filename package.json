@@ -1,0 +1,22 @@
+{
+  "name": "cinedb-app",
+  "version": "1.0.0",
+  "description": "CineDB - Sistema de gestión y consulta del catálogo IMDB Top 1000 (Proyecto final IL356 Bases de Datos)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "ejs": "^7.0.2",
+    "express": "^5.3.0",
+    "express-session": "^1.19.0",
+    "pg": "^8.23.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
