@@ -1,0 +1,10 @@
+<%- include('../partials/header', { active: 'reportes' }) %>
+<h1>Reporte: Recaudación por género</h1>
+<p><a href="/reportes/top">Top por calificación</a> &nbsp;|&nbsp; <a href="/reportes/recaudacion">Recaudación por género</a></p>
+<table>
+  <tr><th>Género</th><th>Recaudación total (M)</th><th>Calificación promedio</th></tr>
+  <% datos.forEach(d => { %>
+  <tr><td><%= d.nombre_genero %></td><td>$<%= d.recaudacion_total_millones %></td><td><%= d.calificacion_promedio %></td></tr>
+  <% }) %>
+</table>
+<%- include('../partials/footer') %>

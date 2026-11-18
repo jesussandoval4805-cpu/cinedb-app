@@ -1,0 +1,11 @@
+<%- include('partials/header', { active: 'auditoria' }) %>
+<h1>Bitácora de eliminaciones</h1>
+<p style="font-size:13px;">Registro automático generado por el disparador <code>trg_auditar_eliminacion</code> cada vez que se elimina una película.</p>
+<table>
+  <tr><th>#</th><th>ID película</th><th>Título eliminado</th><th>Fecha</th><th>Acción</th></tr>
+  <% registros.forEach(r => { %>
+  <tr><td><%= r.id_auditoria %></td><td><%= r.id_pelicula_eliminada %></td><td><%= r.titulo_eliminado %></td><td><%= new Date(r.fecha_eliminacion).toLocaleString('es-MX') %></td><td><%= r.accion %></td></tr>
+  <% }) %>
+  <% if (registros.length === 0) { %><tr><td colspan="5">Aún no hay eliminaciones registradas.</td></tr><% } %>
+</table>
+<%- include('partials/footer') %>

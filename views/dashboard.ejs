@@ -1,0 +1,17 @@
+<%- include('partials/header', { active: 'dashboard' }) %>
+<h1>Dashboard principal</h1>
+<div class="grid3">
+  <div class="card"><div style="font-size:11px; color:#666;">Películas</div><div style="font-size:26px; font-weight:bold;"><%= counts.pelicula %></div></div>
+  <div class="card"><div style="font-size:11px; color:#666;">Directores</div><div style="font-size:26px; font-weight:bold;"><%= counts.director %></div></div>
+  <div class="card"><div style="font-size:11px; color:#666;">Actores</div><div style="font-size:26px; font-weight:bold;"><%= counts.actor %></div></div>
+</div>
+<div class="card" style="margin-top:16px;">
+  <strong>Top 5 por calificación</strong>
+  <table>
+    <tr><th>Título</th><th>Año</th><th>Calificación</th><th>Director</th></tr>
+    <% top.forEach(p => { %>
+    <tr><td><%= p.titulo %></td><td><%= p.anio %></td><td><%= p.calificacion %></td><td><%= p.nombre_director %></td></tr>
+    <% }) %>
+  </table>
+</div>
+<%- include('partials/footer') %>

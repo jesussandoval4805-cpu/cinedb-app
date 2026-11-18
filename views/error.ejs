@@ -1,0 +1,7 @@
+<%- include('partials/header', { active: '' }) %>
+<h1>No se pudo completar la operación</h1>
+<div class="card" style="border:1px solid #c0392b; background:#fdf2f0; padding:14px; border-radius:4px;">
+  <strong>Error <%= status %>:</strong> <%= mensaje %>
+</div>
+<p style="margin-top:14px;"><a class="btn" href="javascript:history.back()">← Volver</a> <a class="btn" href="/">Ir al inicio</a></p>
+<%- include('partials/footer') %>

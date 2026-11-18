@@ -1,0 +1,24 @@
+<%- include('../partials/header', { active: 'peliculas' }) %>
+<h1><%= pelicula.titulo %> (<%= pelicula.anio %>)</h1>
+<p>
+  <% (pelicula.generos||'').split(', ').forEach(g => { %><span class="pill"><%= g %></span><% }) %>
+</p>
+<p><%= pelicula.descripcion || '' %></p>
+<p>
+  Director: <strong><%= pelicula.nombre_director || '-' %></strong> &nbsp;|&nbsp;
+  Calificación: <strong><%= pelicula.calificacion || '-' %></strong> &nbsp;|&nbsp;
+  Duración: <strong><%= pelicula.duracion_minutos ? pelicula.duracion_minutos+' min' : '-' %></strong> &nbsp;|&nbsp;
+  Votos: <strong><%= pelicula.votos ? Number(pelicula.votos).toLocaleString('es-MX') : '-' %></strong> &nbsp;|&nbsp;
+  Metascore: <strong><%= pelicula.metascore || '-' %></strong> &nbsp;|&nbsp;
+  Recaudación: <strong><%= pelicula.recaudacion_millones ? '$'+pelicula.recaudacion_millones+'M' : 'Sin dato' %></strong>
+</p>
+<h3>Reparto</h3>
+<table>
+  <tr><th>#</th><th>Actor</th></tr>
+  <% reparto.forEach(r => { %>
+  <tr><td><%= r.orden_reparto %></td><td><%= r.nombre_actor %></td></tr>
+  <% }) %>
+</table>
+<p style="margin-top:14px;"><a class="btn" href="/peliculas">← Volver al catálogo</a>
+  <% if (user.rol === 'administrador') { %><a class="btn primary" href="/peliculas/<%= pelicula.id_pelicula %>/editar">Editar película</a><% } %></p>
+<%- include('../partials/footer') %>

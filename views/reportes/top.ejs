@@ -1,0 +1,10 @@
+<%- include('../partials/header', { active: 'reportes' }) %>
+<h1>Reporte: Top 10 películas por calificación</h1>
+<p><a href="/reportes/top">Top por calificación</a> &nbsp;|&nbsp; <a href="/reportes/recaudacion">Recaudación por género</a></p>
+<table>
+  <tr><th>#</th><th>Título</th><th>Año</th><th>Calificación</th><th>Director</th></tr>
+  <% top.forEach((p,i) => { %>
+  <tr><td><%= i+1 %></td><td><%= p.titulo %></td><td><%= p.anio %></td><td><%= p.calificacion %></td><td><%= p.nombre_director %></td></tr>
+  <% }) %>
+</table>
+<%- include('../partials/footer') %>

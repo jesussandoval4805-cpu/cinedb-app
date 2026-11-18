@@ -1,0 +1,40 @@
+<%- include('../partials/header', { active: 'peliculas' }) %>
+<div style="display:flex; justify-content:space-between; align-items:center;">
+  <h1>Catálogo de películas</h1>
+  <% if (user.rol === 'administrador') { %><a class="btn primary" href="/peliculas/nueva">+ Nueva película</a><% } %>
+</div>
+<form method="GET" class="filterbar">
+  <input type="text" name="q" placeholder="Buscar por título" value="<%= query.q || '' %>">
+  <input type="number" name="anio" placeholder="Año" value="<%= query.anio || '' %>">
+  <select name="genero">
+    <option value="">Todos los géneros</option>
+    <% generos.forEach(g => { %>
+      <option value="<%= g.nombre_genero %>" <%= query.genero===g.nombre_genero?'selected':'' %>><%= g.nombre_genero %></option>
+    <% }) %>
+  </select>
+  <input type="number" step="0.1" min="0" max="10" name="rating_min" placeholder="Calif. mínima" value="<%= query.rating_min || '' %>" style="width:120px;">
+  <input type="text" name="director" placeholder="Director" value="<%= query.director || '' %>">
+  <button class="btn" type="submit">Filtrar</button>
+  <a class="btn" href="/peliculas">Limpiar</a>
+</form>
+<table>
+  <tr><th>Título</th><th>Año</th><th>Calificación</th><th>Director</th><th>Géneros</th><th>Acciones</th></tr>
+  <% peliculas.forEach(p => { %>
+  <tr>
+    <td><a href="/peliculas/<%= p.id_pelicula %>"><%= p.titulo %></a></td>
+    <td><%= p.anio %></td>
+    <td><%= p.calificacion || '-' %></td>
+    <td><%= p.nombre_director || '-' %></td>
+    <td><%= p.generos || '-' %></td>
+    <td style="white-space:nowrap;">
+      <% if (user.rol === 'administrador') { %>
+      <a class="btn" href="/peliculas/<%= p.id_pelicula %>/editar" style="padding:3px 8px;">Editar</a>
+      <form method="POST" action="/peliculas/<%= p.id_pelicula %>/eliminar" style="display:inline" onsubmit="return confirm('¿Eliminar esta película?');">
+        <button class="btn danger" type="submit" style="padding:3px 8px;">Eliminar</button>
+      </form>
+      <% } %>
+    </td>
+  </tr>
+  <% }) %>
+</table>
+<%- include('../partials/footer') %>

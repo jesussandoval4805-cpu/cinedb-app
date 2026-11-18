@@ -1,0 +1,32 @@
+<%- include('partials/header', { active: 'generos' }) %>
+<h1>Géneros</h1>
+<% if (user.rol === 'administrador') { %>
+<form method="POST" action="/generos/nuevo" class="filterbar">
+  <input type="text" name="nombre_genero" placeholder="Nombre del nuevo género" required>
+  <button class="btn primary" type="submit">+ Agregar</button>
+</form>
+<% } %>
+<table>
+  <tr><th>Nombre</th><th># Películas</th><% if (user.rol === 'administrador') { %><th>Acciones</th><% } %></tr>
+  <% generos.forEach(d => { %>
+  <tr>
+    <% if (user.rol === 'administrador') { %>
+    <td>
+      <form method="POST" action="/generos/<%= d.id_genero %>/editar" style="display:inline-flex; gap:6px;">
+        <input type="text" name="nombre_genero" value="<%= d.nombre_genero %>" required style="min-width:240px;">
+        <button class="btn" type="submit" style="padding:3px 8px;">Guardar</button>
+      </form>
+    </td>
+    <td><%= d.num_peliculas %></td>
+    <td>
+      <form method="POST" action="/generos/<%= d.id_genero %>/eliminar" style="display:inline" onsubmit="return confirm('¿Eliminar este género (se quitará de las películas)?');">
+        <button class="btn danger" type="submit" style="padding:3px 8px;">Eliminar</button>
+      </form>
+    </td>
+    <% } else { %>
+    <td><%= d.nombre_genero %></td><td><%= d.num_peliculas %></td>
+    <% } %>
+  </tr>
+  <% }) %>
+</table>
+<%- include('partials/footer') %>

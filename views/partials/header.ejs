@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>CineDB</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="topbar">
+  <a href="/">CineDB</a>
+  <% if (typeof user !== 'undefined' && user) { %>
+    <span class="user"><%= user.nombre %> (<%= user.rol %>) · <a href="/logout" style="margin-left:10px;">Salir</a></span>
+  <% } %>
+</div>
+<div class="layout">
+<% if (typeof user !== 'undefined' && user) { %>
+  <div class="sidebar">
+    <a href="/" class="<%= active==='dashboard'?'active':'' %>">Dashboard</a>
+    <a href="/peliculas" class="<%= active==='peliculas'?'active':'' %>">Películas</a>
+    <a href="/directores" class="<%= active==='directores'?'active':'' %>">Directores</a>
+    <a href="/actores" class="<%= active==='actores'?'active':'' %>">Actores</a>
+    <a href="/generos" class="<%= active==='generos'?'active':'' %>">Géneros</a>
+    <a href="/reportes/top" class="<%= active==='reportes'?'active':'' %>">Reportes</a>
+    <% if (user.rol === 'administrador') { %><a href="/auditoria" class="<%= active==='auditoria'?'active':'' %>">Bitácora</a><% } %>
+  </div>
+<% } %>
+  <div class="main">

@@ -1,0 +1,32 @@
+<%- include('partials/header', { active: 'actores' }) %>
+<h1>Actores</h1>
+<% if (user.rol === 'administrador') { %>
+<form method="POST" action="/actores/nuevo" class="filterbar">
+  <input type="text" name="nombre_actor" placeholder="Nombre del nuevo actor" required>
+  <button class="btn primary" type="submit">+ Agregar</button>
+</form>
+<% } %>
+<table>
+  <tr><th>Nombre</th><th># Películas</th><% if (user.rol === 'administrador') { %><th>Acciones</th><% } %></tr>
+  <% actores.forEach(d => { %>
+  <tr>
+    <% if (user.rol === 'administrador') { %>
+    <td>
+      <form method="POST" action="/actores/<%= d.id_actor %>/editar" style="display:inline-flex; gap:6px;">
+        <input type="text" name="nombre_actor" value="<%= d.nombre_actor %>" required style="min-width:240px;">
+        <button class="btn" type="submit" style="padding:3px 8px;">Guardar</button>
+      </form>
+    </td>
+    <td><%= d.num_peliculas %></td>
+    <td>
+      <form method="POST" action="/actores/<%= d.id_actor %>/eliminar" style="display:inline" onsubmit="return confirm('¿Eliminar este actor (se quitará de los repartos)?');">
+        <button class="btn danger" type="submit" style="padding:3px 8px;">Eliminar</button>
+      </form>
+    </td>
+    <% } else { %>
+    <td><%= d.nombre_actor %></td><td><%= d.num_peliculas %></td>
+    <% } %>
+  </tr>
+  <% }) %>
+</table>
+<%- include('partials/footer') %>

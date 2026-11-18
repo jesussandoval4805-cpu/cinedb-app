@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>CineDB — Iniciar sesión</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="topbar"><span>CineDB</span></div>
+<div class="login-wrap">
+  <div class="card" style="width:340px;">
+    <h1 style="text-align:center;">Acceso al sistema</h1>
+    <% if (error) { %><div class="error"><%= error %></div><% } %>
+    <form method="POST" action="/login">
+      <label>Usuario</label>
+      <input class="field" type="text" name="nombre_usuario" required>
+      <label>Contraseña</label>
+      <input class="field" type="password" name="contrasena" required>
+      <button class="btn primary" style="width:100%;" type="submit">Iniciar sesión</button>
+    </form>
+    <% if (typeof mostrarDemo === 'undefined' || mostrarDemo) { %>
+    <p style="font-size:11px; color:#888; margin-top:14px;">Demo: admin / Admin#2026 (administrador) · analista / Analista#2026 (analista)</p>
+    <% } %>
+    <p id="aviso-iframe" style="display:none; font-size:12px; color:#555; margin-top:12px;">
+      Si al iniciar sesión vuelve a aparecer esta pantalla, tu navegador bloquea las cookies dentro de la página incrustada.
+      <a href="" id="abrir-nueva" target="_blank" rel="noopener">Abre CineDB en una pestaña nueva</a>.
+    </p>
+  </div>
+</div>
+<script>
+  // Solo se muestra cuando la aplicación está incrustada dentro de otra página (Google Sites).
+  if (window.self !== window.top) {
+    document.getElementById("aviso-iframe").style.display = "block";
+    document.getElementById("abrir-nueva").href = window.location.origin + "/login";
+  }
+</script>
+</body>
+</html>

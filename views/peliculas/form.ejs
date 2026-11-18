@@ -1,0 +1,33 @@
+<%- include('../partials/header', { active: 'peliculas' }) %>
+<% const p = pelicula || {}; const editando = !!pelicula; %>
+<h1><%= editando ? 'Editar película' : 'Nueva película' %></h1>
+<form method="POST" action="<%= editando ? '/peliculas/'+p.id_pelicula+'/editar' : '/peliculas/nueva' %>">
+  <div class="grid3">
+    <div><label>Título</label><input class="field" name="titulo" required value="<%= p.titulo || '' %>"></div>
+    <div><label>Año</label><input class="field" type="number" name="anio" required value="<%= p.anio || '' %>"></div>
+    <div><label>Duración (min)</label><input class="field" type="number" name="duracion_minutos" value="<%= p.duracion_minutos || '' %>"></div>
+    <div><label>Director</label>
+      <select class="field" name="id_director">
+        <option value="">(sin director)</option>
+        <% directores.forEach(d => { %><option value="<%= d.id_director %>" <%= p.id_director===d.id_director?'selected':'' %>><%= d.nombre_director %></option><% }) %>
+      </select>
+    </div>
+    <div><label>Calificación (0-10)</label><input class="field" type="number" step="0.1" name="calificacion" value="<%= p.calificacion ?? '' %>"></div>
+    <div><label>Recaudación (millones)</label><input class="field" type="number" step="0.01" name="recaudacion_millones" value="<%= p.recaudacion_millones ?? '' %>"></div>
+    <div><label>Votos</label><input class="field" type="number" name="votos" value="<%= p.votos ?? '' %>"></div>
+    <div><label>Metascore</label><input class="field" type="number" name="metascore" value="<%= p.metascore ?? '' %>"></div>
+  </div>
+  <label>Descripción</label>
+  <textarea class="field" name="descripcion" rows="3"><%= p.descripcion || '' %></textarea>
+  <label>Géneros</label>
+  <div style="margin-bottom:14px;">
+    <% generos.forEach(g => { %>
+      <label style="display:inline-block; margin-right:12px; font-size:13px;">
+        <input type="checkbox" name="generos" value="<%= g.id_genero %>" <%= seleccionados.includes(g.id_genero)?'checked':'' %>> <%= g.nombre_genero %>
+      </label>
+    <% }) %>
+  </div>
+  <button class="btn primary" type="submit">Guardar</button>
+  <a class="btn" href="/peliculas">Cancelar</a>
+</form>
+<%- include('../partials/footer') %>
